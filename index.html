@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0A2357" />
+    <meta
+      name="description"
+      content="Crie senhas fortes e exclusivas com o Gerador de Senhas Vétus."
+    />
+    <title>Gerador de Senhas Vétus</title>
+    <link rel="icon" href="logo-vetus.webp" type="image/webp" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="Gerador de Senhas Vétus">
+          <span class="logo-frame">
+            <img src="logo-vetus.webp" alt="Vétus Gestão de Acesso" />
+          </span>
+          <span class="brand-copy">
+            <span class="brand-name">VÉTUS</span>
+            <span class="brand-caption">GESTÃO DE ACESSO</span>
+          </span>
+        </a>
+        <span class="header-badge">
+          <span class="status-dot" aria-hidden="true"></span>
+          Gerador local
+        </span>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow">SEGURANÇA DIGITAL, DE UM JEITO SIMPLES</p>
+          <h1 id="page-title">Gerador de Senhas</h1>
+          <p class="intro-copy">
+            Crie uma senha aleatória, longa e exclusiva para cada conta.
+            Personalize os caracteres e copie quando estiver pronta.
+          </p>
+        </section>
+
+        <div class="generator-layout">
+          <section class="panel options-panel" aria-labelledby="options-title">
+            <div class="panel-heading">
+              <span class="step-number" aria-hidden="true">1</span>
+              <div>
+                <h2 id="options-title">Personalize sua senha</h2>
+                <p>Escolha o tamanho e os caracteres permitidos.</p>
+              </div>
+            </div>
+
+            <div class="length-control">
+              <div class="label-row">
+                <label for="length">Comprimento</label>
+                <output id="length-value" for="length">20 caracteres</output>
+              </div>
+              <input id="length" type="range" min="12" max="64" value="20" />
+              <div class="range-labels" aria-hidden="true">
+                <span>12</span>
+                <span>64</span>
+              </div>
+            </div>
+
+            <fieldset class="character-options">
+              <legend>Incluir na senha</legend>
+              <label class="option-card">
+                <input id="lowercase" type="checkbox" checked />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span class="option-copy">
+                  <strong>Letras minúsculas</strong>
+                  <small>a–z</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input id="uppercase" type="checkbox" checked />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span class="option-copy">
+                  <strong>Letras maiúsculas</strong>
+                  <small>A–Z</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input id="numbers" type="checkbox" checked />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span class="option-copy">
+                  <strong>Números</strong>
+                  <small>0–9</small>
+                </span>
+              </label>
+              <label class="option-card">
+                <input id="symbols" type="checkbox" checked />
+                <span class="custom-check" aria-hidden="true"></span>
+                <span class="option-copy">
+                  <strong>Símbolos</strong>
+                  <small>Símbolos comuns</small>
+                </span>
+              </label>
+            </fieldset>
+
+            <div class="extra-options">
+              <label class="toggle-option" for="no-duplicates">
+                <input id="no-duplicates" type="checkbox" />
+                <span class="toggle-track" aria-hidden="true"></span>
+                <span>
+                  <strong>Evitar caracteres repetidos</strong>
+                  <small>O limite depende dos caracteres escolhidos.</small>
+                </span>
+              </label>
+              <label class="toggle-option" for="include-spaces">
+                <input id="include-spaces" type="checkbox" />
+                <span class="toggle-track" aria-hidden="true"></span>
+                <span>
+                  <strong>Permitir espaço</strong>
+                  <small>Alguns serviços não aceitam espaços.</small>
+                </span>
+              </label>
+            </div>
+
+            <p id="options-message" class="inline-message" role="status" hidden></p>
+            <button id="generate-button" class="button button-primary" type="button">
+              <span class="button-icon" aria-hidden="true">✦</span>
+              Gerar senha
+            </button>
+          </section>
+
+          <section class="panel result-panel" aria-labelledby="result-title">
+            <div class="panel-heading">
+              <span class="step-number" aria-hidden="true">2</span>
+              <div>
+                <h2 id="result-title">Sua nova senha</h2>
+                <p>Use uma senha diferente em cada serviço.</p>
+              </div>
+            </div>
+
+            <div id="empty-result" class="empty-result">
+              <span class="lock-illustration" aria-hidden="true">
+                <svg viewBox="0 0 64 64" focusable="false">
+                  <rect x="12" y="27" width="40" height="29" rx="6"></rect>
+                  <path d="M21 27v-8a11 11 0 0 1 22 0v8"></path>
+                  <circle cx="32" cy="40" r="3"></circle>
+                  <path d="M32 43v5"></path>
+                </svg>
+              </span>
+              <strong>Sua senha aparecerá aqui</strong>
+              <span>Ajuste as opções e toque em “Gerar senha”.</span>
+            </div>
+            <p id="generation-message" class="inline-message" role="status" aria-live="polite" hidden></p>
+
+            <div id="generated-result" class="generated-result" hidden>
+              <div class="password-label-row">
+                <label for="password-output">Senha gerada</label>
+                <button
+                  id="toggle-password"
+                  class="text-button"
+                  type="button"
+                  aria-pressed="false"
+                  disabled
+                >
+                  Mostrar
+                </button>
+              </div>
+              <div class="password-box">
+                <input
+                  id="password-output"
+                  type="password"
+                  readonly
+                  autocomplete="off"
+                  autocapitalize="off"
+                  spellcheck="false"
+                  aria-describedby="copy-status"
+                  placeholder="Sua senha aparecerá aqui"
+                />
+                <span class="password-length" id="result-length"></span>
+              </div>
+
+              <div class="strength-row">
+                <div>
+                  <span class="strength-caption">Estimativa de força</span>
+                  <strong id="strength-label">—</strong>
+                </div>
+                <span id="strength-badge" class="strength-badge" hidden></span>
+              </div>
+              <div
+                class="strength-track"
+                role="meter"
+                aria-label="Estimativa de força da senha"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+              >
+                <span id="strength-fill"></span>
+              </div>
+              <p class="strength-note">
+                Estimativa baseada no tamanho e nas opções selecionadas.
+              </p>
+
+              <div class="result-actions">
+                <button id="copy-button" class="button button-primary" type="button" disabled>
+                  Copiar senha
+                </button>
+                <button id="regenerate-button" class="button button-secondary" type="button" disabled>
+                  Gerar outra
+                </button>
+              </div>
+              <p id="copy-status" class="copy-status" role="status" aria-live="polite"></p>
+            </div>
+
+            <div class="privacy-note">
+              <span class="privacy-icon" aria-hidden="true">✓</span>
+              <p>
+                <strong>Privacidade em primeiro lugar.</strong>
+                A senha é gerada neste navegador. Esta página não a envia nem a salva por conta própria.
+              </p>
+            </div>
+          </section>
+        </div>
+
+        <aside class="guidance-card" aria-labelledby="guidance-title">
+          <span class="guidance-icon" aria-hidden="true">✦</span>
+          <div>
+            <h2 id="guidance-title">Uma dica Vétus</h2>
+            <p>
+              Depois de gerar a senha, altere-a no próprio serviço e guarde a nova
+              senha em um gerenciador confiável. Não a envie pelo mesmo canal usado
+              para compartilhar o acesso.
+            </p>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="site-footer">
+        <span>Vétus Gestão de Acesso</span>
+        <span>Segurança digital com orientação simples</span>
+      </footer>
+    </div>
+  </body>
+</html>
